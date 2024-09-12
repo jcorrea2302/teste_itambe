@@ -1,0 +1,1080 @@
+<html><head><base href="https://administracao-obra.com/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração de Obra - Estilo Apple</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #007AFF;
+            --secondary-color: #5AC8FA;
+            --background-color: #F2F2F7;
+            --text-color: #1C1C1E;
+            --border-color: #E5E5EA;
+            --success-color: #34C759;
+            --danger-color: #FF3B30;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-weight: 600;
+            font-size: 28px;
+            text-align: center;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(0, 122, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            padding: 30px;
+            animation: fadeIn 0.5s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-weight: 600;
+            font-size: 24px;
+            margin-bottom: 24px;
+            color: var(--text-color);
+            letter-spacing: -0.5px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--text-color);
+            background-color: #F9F9F9;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .presenca-cell {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .presente {
+            background-color: var(--success-color);
+        }
+
+        .ausente {
+            background-color: var(--danger-color);
+        }
+
+        .presenca-cell.weekend {
+            background-color: #4A90E2;
+            color: white;
+        }
+
+        #mes-ano-select {
+            margin-bottom: 24px;
+            font-size: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: white;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 40px;
+            transition: all 0.3s ease;
+        }
+
+        #mes-ano-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .remover-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .remover-btn:hover {
+            background-color: #D70015;
+            transform: translateY(-2px);
+        }
+
+        .remover-btn .material-icons {
+            font-size: 16px;
+            margin-right: 4px;
+        }
+
+        .hero {
+            background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .calendario {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .calendario-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 16px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .calendario-dia {
+            padding: 40px 0;
+            text-align: center;
+            font-size: 72px;
+            font-weight: 300;
+            color: var(--text-color);
+        }
+
+        .presencas-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        #observacoes {
+            margin-top: 40px;
+        }
+
+        #observacoes-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        #observacoes-data {
+            width: 100%;
+        }
+
+        #observacoes-texto {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        #observacoes-texto:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        #observacoes-lista {
+            margin-top: 24px;
+        }
+
+        .observacao-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .observacao-data {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .observacao-acoes {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 12px;
+        }
+
+        .editar-btn, .remover-btn {
+            margin-left: 8px;
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+
+        .editar-btn {
+            background-color: var(--secondary-color);
+        }
+
+        .editar-btn:hover {
+            background-color: #4BA3D7;
+        }
+
+        .status-cell {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-liberado {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .status-bloqueado {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .status-temporario {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .acoes-celular button {
+            margin-right: 8px;
+            margin-bottom: 4px;
+        }
+
+        #tabela-controle-celular td {
+            vertical-align: middle;
+        }
+
+        .file-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .file-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Administração de Obra</h1>
+        <nav>
+            <ul>
+                <li><a href="#registro-presenca">Registro de Presença</a></li>
+                <li><a href="#cadastro-funcionarios">Cadastro de Funcionários</a></li>
+                <li><a href="#cadastro-cargos">Cadastro de Cargos</a></li>
+                <li><a href="#observacoes">Observações</a></li>
+                <li><a href="#controle-celular">Controle de Celular</a></li>
+                <li><a href="#estatisticas">Estatísticas</a></li>
+                <li><a href="#relatorios-obras">Relatórios de Obras</a></li>
+                <li><a href="#cronograma-obra">Cronograma de Obra</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Gestão Eficiente de Obras</h1>
+                <p>Otimize o controle de presença e cadastro de funcionários com nossa plataforma intuitiva.</p>
+            </div>
+        </div>
+        <div id="calendario-dia" class="content">
+            <h2>Calendário do Dia</h2>
+            <div class="calendario">
+                <div class="calendario-header">
+                    <span id="calendario-mes-ano"></span>
+                </div>
+                <div id="calendario-dia-atual" class="calendario-dia"></div>
+            </div>
+        </div>
+        <div id="registro-presenca" class="content">
+            <h2>Registro de Presença</h2>
+            <select id="mes-ano-select" onchange="atualizarTabelaPresenca()">
+                <!-- Opções serão preenchidas dinamicamente -->
+            </select>
+            <div class="table-container">
+                <table id="tabela-presenca">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cargo</th>
+                            <th>Ações</th>
+                            <th>Presenças</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão preenchidos dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="cadastro-funcionarios" class="content">
+            <h2>Cadastro de Funcionários</h2>
+            <form id="form-cadastro">
+                <input type="text" id="nome" placeholder="Nome" required>
+                <select id="cargo" required>
+                    <option value="">Selecione o Cargo</option>
+                    <!-- Opções serão preenchidas dinamicamente -->
+                </select>
+                <button type="submit">
+                    <span class="material-icons">add</span>
+                    Cadastrar Funcionário
+                </button>
+            </form>
+        </div>
+        <div id="cadastro-cargos" class="content">
+            <h2>Cadastro de Cargos</h2>
+            <form id="form-cadastro-cargo">
+                <input type="text" id="nome-cargo" placeholder="Nome do Cargo" required>
+                <button type="submit">
+                    <span class="material-icons">add</span>
+                    Cadastrar Cargo
+                </button>
+            </form>
+            <div id="lista-cargos"></div>
+        </div>
+        <div id="observacoes" class="content">
+            <h2>Observações</h2>
+            <form id="observacoes-form">
+                <input type="date" id="observacoes-data" required>
+                <textarea id="observacoes-texto" placeholder="Digite suas observações aqui" required></textarea>
+                <button type="submit">Adicionar Observação</button>
+            </form>
+            <div id="observacoes-lista">
+                <!-- Observações serão adicionadas aqui dinamicamente -->
+            </div>
+        </div>
+        <div id="estatisticas" class="content">
+            <h2>Estatísticas</h2>
+            <div id="filtro-data">
+                <input type="date" id="data-estatisticas">
+                <button onclick="atualizarEstatisticas()">Filtrar</button>
+            </div>
+            <div id="estatisticas-por-cargo"></div>
+            <div id="total-colaboradores"></div>
+            <canvas id="grafico-presencas"></canvas>
+        </div>
+        <div id="controle-celular" class="content">
+            <h2>Controle de Celular</h2>
+            <div class="table-container">
+                <table id="tabela-controle-celular">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cargo</th>
+                            <th>Status</th>
+                            <th>Período de Liberação</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão preenchidos dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="relatorios-obras" class="content">
+            <h2>Relatórios de Obras</h2>
+            <form id="form-upload-relatorio">
+                <input type="file" id="relatorio-pdf" accept=".pdf" required>
+                <button type="submit">Enviar Relatório</button>
+            </form>
+            <div id="lista-relatorios"></div>
+        </div>
+        <div id="cronograma-obra" class="content">
+            <h2>Cronograma de Obra</h2>
+            <form id="form-upload-cronograma">
+                <input type="file" id="cronograma-csv" accept=".csv" required>
+                <button type="submit">Enviar Cronograma</button>
+            </form>
+            <div id="filtro-cronograma">
+                <input type="date" id="data-cronograma">
+                <button onclick="filtrarCronograma()">Filtrar</button>
+            </div>
+            <div id="lista-cronogramas"></div>
+        </div>
+    </div>
+
+    <script>
+        let funcionarios = [];
+        let presencas = {};
+        let observacoes = [];
+        let celularControle = {};
+        let cargos = [];
+        let relatorios = [];
+        let cronogramas = [];
+        let cargoIdCounter = 0;
+
+        function dataPassou(data) {
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+            return new Date(data) < hoje;
+        }
+
+        function inicializarMesAnoSelect() {
+            const select = document.getElementById('mes-ano-select');
+            const dataAtual = new Date();
+            for (let i = 0; i < 12; i++) {
+                const data = new Date(dataAtual.getFullYear(), dataAtual.getMonth() - i, 1);
+                const option = document.createElement('option');
+                option.value = `${data.getFullYear()}-${(data.getMonth() + 1).toString().padStart(2, '0')}`;
+                option.textContent = data.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+                select.appendChild(option);
+            }
+        }
+
+        function getDiasNoMes(ano, mes) {
+            return new Date(ano, mes, 0).getDate();
+        }
+
+        function isWeekend(year, month, day) {
+            const date = new Date(year, month - 1, day);
+            return date.getDay() === 0 || date.getDay() === 6;
+        }
+
+        function atualizarTabelaPresenca() {
+            const [ano, mes] = document.getElementById('mes-ano-select').value.split('-');
+            const diasNoMes = getDiasNoMes(ano, mes);
+            const tbody = document.querySelector('#tabela-presenca tbody');
+
+            // Limpar corpo da tabela
+            tbody.innerHTML = '';
+
+            // Preencher tabela com funcionários e dias
+            funcionarios.forEach((funcionario, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${funcionario.nome}</td>
+                    <td>${cargos.find(cargo => cargo.id === funcionario.cargoId).nome}</td>
+                    <td>
+                        <button class="remover-btn" onclick="removerFuncionario(${index})">
+                            <span class="material-icons">delete</span>
+                            Remover
+                        </button>
+                    </td>
+                    <td class="presencas-container"></td>
+                `;
+                
+                const presencasContainer = tr.querySelector('.presencas-container');
+                for (let dia = 1; dia <= diasNoMes; dia++) {
+                    const presencaCell = document.createElement('div');
+                    const dataStr = `${ano}-${mes}-${dia.toString().padStart(2, '0')}`;
+                    const presenca = presencas[funcionario.nome]?.[dataStr] || 'ausente';
+                    presencaCell.className = `presenca-cell ${presenca}`;
+                    if (isWeekend(ano, mes, dia)) {
+                        presencasContainer.appendChild(presencaCell);
+                        presencaCell.classList.add('weekend');
+                    } else {
+                        presencaCell.textContent = dia;
+                        presencaCell.onclick = () => togglePresenca(funcionario.nome, dataStr, presencaCell);
+                        presencasContainer.appendChild(presencaCell);
+                    }
+                }
+                
+                tbody.appendChild(tr);
+            });
+        }
+
+        function togglePresenca(nome, data, cell) {
+            if (!presencas[nome]) {
+                presencas[nome] = {};
+            }
+            presencas[nome][data] = presencas[nome][data] === 'presente' ? 'ausente' : 'presente';
+            cell.className = `presenca-cell ${presencas[nome][data]}`;
+            cell.textContent = data.split('-')[2]; // Display the day number
+        }
+
+        function removerFuncionario(index) {
+            const funcionario = funcionarios[index];
+            if (confirm(`Tem certeza que deseja remover ${funcionario.nome} da lista?`)) {
+                funcionarios.splice(index, 1);
+                delete presencas[funcionario.nome];
+                delete celularControle[funcionario.nome];
+                atualizarTabelaPresenca();
+                atualizarTabelaControleCelular();
+            }
+        }
+
+        function cadastrarCargo(nome) {
+            const novoCargo = { id: cargoIdCounter++, nome: nome };
+            cargos.push(novoCargo);
+            atualizarListaCargos();
+            atualizarSelectCargos();
+        }
+
+        function atualizarListaCargos() {
+            const listaCargos = document.getElementById('lista-cargos');
+            listaCargos.innerHTML = '';
+            cargos.forEach(cargo => {
+                const item = document.createElement('div');
+                item.textContent = cargo.nome;
+                listaCargos.appendChild(item);
+            });
+        }
+        
+        function atualizarSelectCargos() {
+            const select = document.getElementById('cargo');
+            select.innerHTML = '<option value="">Selecione o Cargo</option>';
+            cargos.forEach(cargo => {
+                const option = document.createElement('option');
+                option.value = cargo.id;
+                option.textContent = cargo.nome;
+                select.appendChild(option);
+            });
+        }
+
+        document.getElementById('form-cadastro-cargo').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nomeCargo = document.getElementById('nome-cargo').value;
+            cadastrarCargo(nomeCargo);
+            this.reset();
+        });
+
+        document.getElementById('form-cadastro').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const cargoId = parseInt(document.getElementById('cargo').value);
+            funcionarios.push({nome, cargoId});
+            atualizarTabelaPresenca();
+            atualizarTabelaControleCelular();
+            alert(`Funcionário ${nome} cadastrado com sucesso!`);
+            this.reset();
+        });
+
+        document.getElementById('observacoes-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = document.getElementById('observacoes-data').value;
+            const texto = document.getElementById('observacoes-texto').value;
+            observacoes.push({ data, texto });
+            atualizarObservacoes();
+            this.reset();
+        });
+
+        function atualizarTabelaControleCelular() {
+            const tbody = document.querySelector('#tabela-controle-celular tbody');
+            tbody.innerHTML = '';
+            const hoje = new Date();
+
+            funcionarios.forEach((funcionario, index) => {
+                const tr = document.createElement('tr');
+                let status = celularControle[funcionario.nome] || { tipo: 'bloqueado' };
+
+                // Verificar se a liberação temporária expirou
+                if (status.tipo === 'temporario' && status.dataFim && dataPassou(status.dataFim)) {
+                    status = { tipo: 'bloqueado' };
+                    celularControle[funcionario.nome] = status;
+                }
+
+                let periodoLiberacao = '';
+                if (status.tipo === 'temporario' && status.dataInicio && status.dataFim) {
+                    periodoLiberacao = `${formatarData(status.dataInicio)} - ${formatarData(status.dataFim)}`;
+                }
+
+                tr.innerHTML = `
+                    <td>${funcionario.nome}</td>
+                    <td>${cargos.find(cargo => cargo.id === funcionario.cargoId).nome}</td>
+                    <td><span class="status-cell status-${status.tipo}">${status.tipo}</span></td>
+                    <td>${periodoLiberacao}</td>
+                    <td class="acoes-celular">
+                        <button onclick="liberarCelular('${funcionario.nome}', 'definitivo')">Liberar Definitivo</button>
+                        <button onclick="liberarCelular('${funcionario.nome}', 'temporario')">Liberar Temporário</button>
+                        <button onclick="bloquearCelular('${funcionario.nome}')">Bloquear</button>
+                    </td>
+                `;
+                
+                tbody.appendChild(tr);
+            });
+        }
+
+        function liberarCelular(nome, tipo) {
+            if (tipo === 'temporario') {
+                const dataInicio = prompt('Digite a data de início da liberação temporária (DD/MM/AAAA):');
+                const dataFim = prompt('Digite a data de fim da liberação temporária (DD/MM/AAAA):');
+                if (dataInicio && dataFim) {
+                    celularControle[nome] = { 
+                        tipo: 'temporario', 
+                        dataInicio: converterDataParaISO(dataInicio),
+                        dataFim: converterDataParaISO(dataFim)
+                    };
+                }
+            } else {
+                celularControle[nome] = { tipo: 'liberado' };
+            }
+            atualizarTabelaControleCelular();
+        }
+
+        function bloquearCelular(nome) {
+            celularControle[nome] = { tipo: 'bloqueado' };
+            atualizarTabelaControleCelular();
+        }
+
+        function formatarData(dataISO) {
+            const data = new Date(dataISO);
+            return data.toLocaleDateString('pt-BR');
+        }
+
+        function converterDataParaISO(dataBR) {
+            const [dia, mes, ano] = dataBR.split('/');
+            return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
+        }
+
+        function atualizarObservacoes() {
+            const lista = document.getElementById('observacoes-lista');
+            lista.innerHTML = '';
+            observacoes.sort((a, b) => new Date(b.data) - new Date(a.data)).forEach((obs, index) => {
+                const item = document.createElement('div');
+                item.className = 'observacao-item';
+                item.innerHTML = `
+                    <div class="observacao-data">${new Date(obs.data).toLocaleDateString('pt-BR')}</div>
+                    <div class="observacao-texto">${obs.texto}</div>
+                    <div class="observacao-acoes">
+                        <button class="editar-btn" onclick="editarObservacao(${index})">
+                            <span class="material-icons">edit</span>
+                            Editar
+                        </button>
+                        <button class="remover-btn" onclick="removerObservacao(${index})">
+                            <span class="material-icons">delete</span>
+                            Remover
+                        </button>
+                    </div>
+                `;
+                lista.appendChild(item);
+            });
+        }
+
+        function editarObservacao(index) {
+            const obs = observacoes[index];
+            document.getElementById('observacoes-data').value = obs.data;
+            document.getElementById('observacoes-texto').value = obs.texto;
+            document.getElementById('observacoes-form').onsubmit = function(e) {
+                e.preventDefault();
+                obs.data = document.getElementById('observacoes-data').value;
+                obs.texto = document.getElementById('observacoes-texto').value;
+                this.onsubmit = null;
+                this.reset();
+                atualizarObservacoes();
+            };
+        }
+
+        function removerObservacao(index) {
+            if (confirm('Tem certeza que deseja remover esta observação?')) {
+                observacoes.splice(index, 1);
+                atualizarObservacoes();
+            }
+        }
+
+        function atualizarCalendario() {
+            const dataAtual = new Date();
+            const mesAnoElement = document.getElementById('calendario-mes-ano');
+            const diaAtualElement = document.getElementById('calendario-dia-atual');
+
+            mesAnoElement.textContent = dataAtual.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+            diaAtualElement.textContent = dataAtual.getDate();
+        }
+
+        function atualizarEstatisticas() {
+            const data = document.getElementById('data-estatisticas').value;
+            const estatisticasPorCargo = document.getElementById('estatisticas-por-cargo');
+            const totalColaboradores = document.getElementById('total-colaboradores');
+            
+            estatisticasPorCargo.innerHTML = '';
+            let total = 0;
+            
+            cargos.forEach(cargo => {
+                const colaboradoresCargo = funcionarios.filter(f => f.cargoId === cargo.id && presencas[f.nome]?.[data] === 'presente');
+                const count = colaboradoresCargo.length;
+                total += count;
+                
+                const item = document.createElement('div');
+                item.textContent = `${cargo.nome}: ${count}`;
+                estatisticasPorCargo.appendChild(item);
+            });
+            
+            totalColaboradores.textContent = `Total de colaboradores: ${total}`;
+            
+            atualizarGraficoPresencas();
+        }
+
+        function atualizarGraficoPresencas() {
+            const ctx = document.getElementById('grafico-presencas').getContext('2d');
+            const datasUltimos30Dias = [...Array(30)].map((_, i) => {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                return d.toISOString().split('T')[0];
+            }).reverse();
+            
+            const presencasPorDia = datasUltimos30Dias.map(data => 
+                funcionarios.filter(f => presencas[f.nome]?.[data] === 'presente').length
+            );
+            
+            const faltasPorDia = datasUltimos30Dias.map(data => 
+                funcionarios.filter(f => presencas[f.nome]?.[data] !== 'presente').length
+            );
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: datasUltimos30Dias,
+                    datasets: [{
+                        label: 'Presenças',
+                        data: presencasPorDia,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Faltas',
+                        data: faltasPorDia,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Presenças e Faltas nos Últimos 30 Dias'
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Atualizar o controle de celular periodicamente
+        function atualizarControleCelularPeriodicamente() {
+            atualizarTabelaControleCelular();
+            setTimeout(atualizarControleCelularPeriodicamente, 60000); // Atualiza a cada minuto
+        }
+
+        // Inicialização
+        function inicializar() {
+            inicializarMesAnoSelect();
+            atualizarTabelaPresenca();
+            atualizarCalendario();
+            atualizarTabelaControleCelular();
+            atualizarControleCelularPeriodicamente();
+            atualizarListaCargos();
+            atualizarListaRelatorios();
+            atualizarListaCronogramas();
+            setInterval(atualizarCalendario, 60000); // Update every minute
+        }
+
+        document.getElementById('form-upload-relatorio').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const file = document.getElementById('relatorio-pdf').files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    relatorios.push({
+                        name: file.name,
+                        data: e.target.result
+                    });
+                    atualizarListaRelatorios();
+                };
+                reader.readAsDataURL(file);
+            }
+            this.reset();
+        });
+
+        document.getElementById('form-upload-cronograma').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const file = document.getElementById('cronograma-csv').files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    cronogramas.push({
+                        name: file.name,
+                        data: e.target.result,
+                        date: new Date().toISOString().split('T')[0]
+                    });
+                    atualizarListaCronogramas();
+                };
+                reader.readAsText(file);
+            }
+            this.reset();
+        });
+
+        function atualizarListaRelatorios() {
+            const lista = document.getElementById('lista-relatorios');
+            lista.innerHTML = '';
+            relatorios.forEach((relatorio, index) => {
+                const item = document.createElement('div');
+                item.className = 'file-item';
+                item.innerHTML = `
+                    <a href="${relatorio.data}" download="${relatorio.name}">${relatorio.name}</a>
+                    <button class="remover-btn" onclick="removerRelatorio(${index})">
+                        <span class="material-icons">delete</span>
+                        Remover
+                    </button>
+                `;
+                lista.appendChild(item);
+            });
+        }
+
+        function removerRelatorio(index) {
+            if (confirm('Tem certeza que deseja remover este relatório?')) {
+                relatorios.splice(index, 1);
+                atualizarListaRelatorios();
+            }
+        }
+
+        function atualizarListaCronogramas() {
+            const lista = document.getElementById('lista-cronogramas');
+            lista.innerHTML = '';
+            cronogramas.forEach((cronograma, index) => {
+                const item = document.createElement('div');
+                item.className = 'file-item';
+                item.innerHTML = `
+                    <span>${cronograma.name} (${cronograma.date})</span>
+                    <div>
+                        <a href="data:text/csv;charset=utf-8,${encodeURIComponent(cronograma.data)}" download="${cronograma.name}">Download</a>
+                        <button class="remover-btn" onclick="removerCronograma(${index})">
+                            <span class="material-icons">delete</span>
+                            Remover
+                        </button>
+                    </div>
+                `;
+                lista.appendChild(item);
+            });
+        }
+
+        function removerCronograma(index) {
+            if (confirm('Tem certeza que deseja remover este cronograma?')) {
+                cronogramas.splice(index, 1);
+                atualizarListaCronogramas();
+            }
+        }
+
+        function filtrarCronograma() {
+            const data = document.getElementById('data-cronograma').value;
+            const cronogramasFiltrados = cronogramas.filter(c => c.date === data);
+            const lista = document.getElementById('lista-cronogramas');
+            lista.innerHTML = '';
+            cronogramasFiltrados.forEach((cronograma, index) => {
+                const item = document.createElement('div');
+                item.className = 'file-item';
+                item.innerHTML = `
+                    <span>${cronograma.name} (${cronograma.date})</span>
+                    <div>
+                        <a href="data:text/csv;charset=utf-8,${encodeURIComponent(cronograma.data)}" download="${cronograma.name}">Download</a>
+                        <button class="remover-btn" onclick="removerCronograma(${cronogramas.indexOf(cronograma)})">
+                            <span class="material-icons">delete</span>
+                            Remover
+                        </button>
+                    </div>
+                `;
+                lista.appendChild(item);
+            });
+        }
+
+        inicializar();
+    </script>
+</body>
+</html>
